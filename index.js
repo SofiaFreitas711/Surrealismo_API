@@ -1,11 +1,14 @@
 require('dotenv').config();         // read environment variables from .env file
 const express = require('express');
-const cors = require('cors');       // middleware to enable CORS (Cross-Origin Resource Sharing)
 
 const app = express();
 const port = process.env.PORT;
 
-app.use(cors()); //enable CORS requests from http://localhost:8081
+const swaggerUi = require("swagger-ui-express"); 
+const swaggerDocument = require("./swagger.json")
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {explorer: true})); 
+
 app.use(express.json()); //enable parsing JSON body data
 
 // root route -- /api/
