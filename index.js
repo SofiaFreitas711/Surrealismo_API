@@ -17,11 +17,12 @@ app.get('/', function (req, res) {
 
 // routing middleware
 app.use('/users', require('./routes/users.routes.js'))
-// app.use('/arts', require('./routes/arts.routes.js'))
+app.use('/games', require('./routes/games.routes.js'))
+app.use('/arts', require('./routes/arts.routes.js'))
 // app.use('/artists', require('./routes/artists.routes.js'))
 // app.use('/news', require('./routes/news.routes.js'))
-// app.use('/games', require('./routes/games.routes.js'))
 // app.use('/shop', require('./routes/shop.routes.js'))
+// app.use('/shop', require('./routes/techniques.routes.js'))
 
 // handle invalid routes
 app.get('*', function (req, res) {
