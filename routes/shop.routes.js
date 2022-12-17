@@ -4,7 +4,7 @@ const shopController = require('../controllers/shop.controller.js')
 const { validationResult, body } = require('express-validator')
 
 /**
- * @route GET /trocas/
+ * @route GET /shop/
  * @group Shop
  * @param {object} object.body - Retorna todas as trocas disponiveis - ex. {}
  * @returns {object} 200 - Bearer Token
@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 })
 
 /**
- * @route GET /trocas/:id
+ * @route GET /shop/:id
  * @group Shop
  * @param {object} object.body - Retorna a informação de uma troca pesquisado pelo id - ex. {}
  * @returns {object} 200 - Bearer Token
@@ -29,7 +29,7 @@ router.get('/:id', (req,res) => {
 })
 
 /**
- * @route Post /trocas/
+ * @route Post /shop/
  * @group Shop
  * @param {object} object.body - Formulário para adicionar nova troca - ex. {}
  * @returns {object} 201 - Criado com sucesso
@@ -53,7 +53,7 @@ router.post('/', [
 })
 
 /**
- * @route Put /trocas/:id
+ * @route Put /shop/:id
  * @group Shop
  * @param {object} id.put - Formulário para alterar troca - ex. {}
  * @returns {object} 200 - Noticia alterada
@@ -69,7 +69,7 @@ router.put('/:id', (req, res) => {
 })
 
 /**
- * @route DELETE /trocas/:id
+ * @route DELETE /shop/:id
  * @group Shop
  * @param {object} id.delete - Id da troca
  * @returns {object} 204 - Troca eliminada

@@ -4,7 +4,7 @@ const artistsController = require('../controllers/artists.controller.js')
 const { validationResult, body } = require('express-validator')
 
 /**
- * @route GET /artistas/
+ * @route GET /artists/
  * @group Artists
  * @param {object} object.body - Retorna todas as informações dos artistas - ex. {}
  * @returns {object} 200 - Bearer Token
@@ -29,8 +29,8 @@ router.get('/:id', (req,res) => {
 })
 
 /**
- * @route Post /artistas/
- * @group Artistas
+ * @route Post /artists/
+ * @group Artists
  * @param {object} object.body - Formulário para adicionar novo artista - ex. {}
  * @returns {object} 201 - Criado com sucesso
  * @returns {Error} 400 - Dados em falta
@@ -53,7 +53,7 @@ router.post('/', [
 })
 
 /**
- * @route Put /artistas/:id
+ * @route Put /artists/:id
  * @group Artists
  * @param {object} id.put - Formulário para alterar artista - ex. {}
  * @returns {object} 200 - Noticia alterada
@@ -69,7 +69,7 @@ router.put('/:id', (req, res) => {
 })
 
 /**
- * @route DELETE /artistas/:id
+ * @route DELETE /artists/:id
  * @group Artists
  * @param {object} id.delete - Id da noticia
  * @returns {object} 204 - noticia eliminada

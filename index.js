@@ -19,13 +19,13 @@ app.get('/', function (req, res) {
 app.use('/users', require('./routes/users.routes.js'))
 app.use('/games', require('./routes/games.routes.js'))
 app.use('/arts', require('./routes/arts.routes.js'))
-// app.use('/artists', require('./routes/artists.routes.js'))
-// app.use('/news', require('./routes/news.routes.js'))
-// app.use('/shop', require('./routes/shop.routes.js'))
-// app.use('/shop', require('./routes/techniques.routes.js'))
+app.use('/news', require('./routes/news.routes.js'))
+app.use('/artists', require('./routes/artists.routes.js'))
+app.use('/shop', require('./routes/shop.routes.js'))
+// app.use('/techniques', require('./routes/techniques.routes.js'))
 
 // handle invalid routes
 app.get('*', function (req, res) {
     res.status(404).json({ message: 'WHAT???' });
 })
-app.listen(port, () => console.log(`App listening at localhost:${port}`));
+app.listen(port, () => console.log(`App listening at http://localhost:${port}`));

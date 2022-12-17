@@ -15,6 +15,6 @@ module.exports = (mongoose) => {
             favorites: {type: Array},
         }
     );
-    const News = mongoose.model("news", schema);
-    return News;
+    const User = mongoose.model("Users", schema);
+    return User;
 }
