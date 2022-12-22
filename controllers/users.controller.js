@@ -39,12 +39,6 @@ exports.register = async (req, res) => {
         password: req.body.password,
         birthDate: req.body.birthDate,
         locality: req.body.locality,
-        type: 'user',
-        active: { type: Boolean, default: true},
-        points: 0,
-        gamesPlayed: [],
-        exchanges: [],
-        favorites: [],
     });
 
     try {
@@ -53,12 +47,13 @@ exports.register = async (req, res) => {
     } catch (err) {
         if (err.name === "ValidationError") {
             let errors = [];
-            Object.keys(errors).forEach(key => {
+            Object.keys(err.errors).forEach((key) => {
                 errors.push(err.errors[key].message);
             });
-            return res.status(400).json({success: false, msgs: errors});
-        } else {
-            res.status(500).json({success: false, msg: err.message || "Ocorreu algum erro ao criar o utilizador!"})
+            return res.status(400).json({ success: false, msgs: errors });
         }
+        else
+            res.status(500).json({ success: false, msg: err.message || "Ocorreu algum erro ao criar o utilizador."
+            });
     }
 }

@@ -13,7 +13,7 @@ const { validationResult, body } = require('express-validator')
  * @returns {Error} 500 - Algo deu errado
  */
 router.post('/login', (req, res) => {
-    // userController.login(req, res)
+    userController.login(req, res)
 })
 
 /**
