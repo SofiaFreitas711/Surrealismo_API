@@ -17,12 +17,12 @@ const { validationResult, body } = require('express-validator')
 router.post('/', [
     body('name').notEmpty().escape(),
     body('image').notEmpty().escape(),
-    body('questions').notEmpty().escape(),
+    body('questions').notEmpty(),
     body('points').notEmpty().escape(),
 ], (req, res) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
-        // gameController.create(req, res);
+        gameController.create(req, res);
     } else {
         res.status(404).json({errors: errors.array()});
     }
@@ -37,7 +37,7 @@ router.post('/', [
  * @security Bearer
  */
 router.get('/', (req, res) => {
-    // gameController.getAll(req, res);
+    gameController.getAll(req, res);
 })
 
 /**
@@ -50,8 +50,8 @@ router.get('/', (req, res) => {
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.get('/:id', (req, res) => {
-    // gameController.findGame(req, res);
+router.get('/:gameID', (req, res) => {
+    gameController.findGame(req, res);
 })
 
 /**

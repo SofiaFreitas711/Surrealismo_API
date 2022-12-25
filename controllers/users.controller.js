@@ -1,4 +1,4 @@
-const User = require('../models/users.model');
+const User = require('../models/users.model.js');
 const bcrypt = require('bcrypt')
 
 exports.login = async (req, res) => {
@@ -28,8 +28,16 @@ exports.login = async (req, res) => {
             role: user.type,
         })
     } catch (err) {
+        if (err.name === "ValidationError") {
+            let errors = [];
+            Object.keys(err.errors).forEach((key) => {
+                errors.push(err.errors[key].message);
+            });
+            return res.status(400).json({ success: false, msgs: errors });
+        }
+        else
         res.status(500).json({ success: false, msg: err.message || "Ocorreu algum erro no login." });
-    };
+    }
 }
 
 exports.register = async (req, res) => {
@@ -56,4 +64,69 @@ exports.register = async (req, res) => {
             res.status(500).json({ success: false, msg: err.message || "Ocorreu algum erro ao criar o utilizador."
             });
     }
+}
+
+exports.getAll = async (req, res) => {
+    try {
+        let data = await User
+            .find()
+            .select('name image type')
+            .exec();
+        res.status(200).json({ success: true, user: data });
+    } catch (err) {
+        if (err.name === "ValidationError") {
+            let errors = [];
+            Object.keys(err.errors).forEach(key => {
+                errors.push(err.errors[key].message);
+            });
+            return res.status(400).json({ success: false, msg: err.message || "Ocorreu algum erro ao recuperar os utilizadores."})
+        }
+    }
+}
+
+exports.findUser = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.userID).exec();
+
+        if (user === null) {
+            res.status(404).json({success: false, msg: `Não foi possível encontrar nenhum utilizador com o ID ${req.params.userID}`})
+        }
+
+        res.json({success: true, user: user})
+    } catch (err) {
+        if (err.name === "ValidationError") {
+            let errors = [];
+            Object.keys(err.errors).forEach(key => {
+                errors.push(err.errors[key].message);
+            });
+            return res.status(400).json({success: false, msg: `Erro ao recuperar o utilizador com ID ${req.params.userID}.`})
+        }
+    }
+}
+
+exports.update = async (req, res) => {
+    try {
+        const user = await User.findByIdAndUpdate(req.params.userID, req.body).exec();
+
+        if (!user) {
+            return res.status(404).json({message: `Não é possível atualizar o utilizador com id=${req.params.userID}. Verifica se utilizador existe!`});
+        }
+        res.status(200).json({message: `Utilizador id=${req.params.userID} foi atualizado com sucesso!`});
+    } catch (err) {
+        res.status(500).json({message: `Erro ao atualizar o utilizador com id=${req.params.userID}`});
+    }   
+}
+
+exports.delete = async (req, res) => {
+    try {
+        const user = await User.findByIdAndRemove(req.params.userID).exec()
+        
+        if (!user) {
+            res.status(404).json({message: `Não é possivel excluir o utilziador com id=${req.params.userID}. Talvez o utilizador não foi encontrado!`});
+        } else {
+            res.status(200).json({message: `Utilizador com id=${req.params.userID} foi excluído com sucesso`})
+        }
+    } catch (err) {
+        res.status(500).json({message: `Erro ao excluir o utilizador com o id=${req.params.userID}`});
+    };
 }

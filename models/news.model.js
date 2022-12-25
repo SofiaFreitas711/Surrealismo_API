@@ -8,7 +8,7 @@ const schema = new mongoose.Schema(
         price: {type: Number},
         info: { type: String, required: [true, 'Falta uma descrição']},
         locality: { type: String},
-        type: {type: String, enum: {values: ['Noticia', 'Evento'], message: '{VALUE} não é suportado'}}
+        type: {type: String, enum: {values: ['Noticia', 'Evento'], message: '{VALUE} não é suportado'}, default: 'Noticia'}
     }
 );
 const News = mongoose.model("news", schema);

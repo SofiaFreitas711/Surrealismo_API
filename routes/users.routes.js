@@ -49,7 +49,7 @@ router.post('/register', [
  * @security Bearer
  */
 router.get('/', (req, res) => {
-    // userController.getAll(req, res);
+    userController.getAll(req, res);
 })
 
 /**
@@ -63,8 +63,8 @@ router.get('/', (req, res) => {
  * @returns {Error} 500 - Internal server error
  * @security Bearer
  */
-router.get('/:id', (req, res) => {
-    // userController.findUser(req, res);
+router.get('/:userID', (req, res) => {
+    userController.findUser(req, res);
 })
 
 /**
@@ -79,8 +79,8 @@ router.get('/:id', (req, res) => {
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.patch('/:id', (req, res) => {
-    // userController.update(req, res);
+router.patch('/:userID', (req, res) => {
+    userController.update(req, res);
 })
 
 /**
@@ -94,8 +94,8 @@ router.patch('/:id', (req, res) => {
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.delete('/:id', (req, res) => {
-    // userController.delete(req, res);
+router.delete('/:userID', (req, res) => {
+    userController.delete(req, res);
 })
 
 module.exports = router;
