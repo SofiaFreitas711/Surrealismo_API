@@ -12,7 +12,7 @@ const { validationResult, body } = require('express-validator')
  */
 
 router.get('/', (req, res) => {
-    // newsController.getAll(req, res)
+    newsController.getAll(req, res)
 })
 
 /**
@@ -25,7 +25,7 @@ router.get('/', (req, res) => {
  * @returns {Error} 500 - Algo deu errado
  */
 router.get('/:id', (req,res) => {
-    // newsController.findById(req, res)
+    newsController.findById(req, res)
 })
 
 /**
@@ -38,7 +38,7 @@ router.get('/:id', (req,res) => {
  * @returns {Error} 500 - Algo deu errado
  */
 router.get('/:type', (req,res) => {
-    //newsController.findByType(req,res)
+    newsController.findByType(req,res)
 })
 
 /**
@@ -63,7 +63,7 @@ router.post('/', [
 ] ,(req,res) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
-        //newsController.create(req,res)
+        newsController.create(req,res)
     } else {
         res.status(404).json({errors: errors.array()});
     }
@@ -82,7 +82,7 @@ router.post('/', [
  */
 
 router.put('/:id', (req, res) => {
-    // newsController.update(req, res);
+    newsController.update(req, res);
 })
 
 /**
@@ -97,7 +97,7 @@ router.put('/:id', (req, res) => {
  * @security Bearer
  */
 router.delete('/:id', (req, res) => {
-    // newsController.delete(req, res);
+    newsController.delete(req, res);
 })
 
 module.exports = router;
