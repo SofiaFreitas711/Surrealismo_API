@@ -66,8 +66,8 @@ router.get('/:gameID', (req, res) => {
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.patch('/:id', (req, res) => {
-    // gameController.update(req, res);
+router.patch('/:gameID', (req, res) => {
+    gameController.update(req, res);
 })
 
 /**
@@ -81,8 +81,8 @@ router.patch('/:id', (req, res) => {
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.delete('/:id', (req, res) => {
-    // gameController.delete(req, res);
+router.delete('/:gameID', (req, res) => {
+    gameController.delete(req, res);
 })
 
 module.exports = router;

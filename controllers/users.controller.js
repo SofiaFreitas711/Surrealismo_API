@@ -1,4 +1,5 @@
 const User = require('../models/users.model.js');
+const utilities = require('../utilities/utilities')
 const bcrypt = require('bcrypt')
 
 exports.login = async (req, res) => {
@@ -19,11 +20,13 @@ exports.login = async (req, res) => {
             })
         }
 
-        // Token
+        const token = utilities.generateToken({user: req.body.username}, (token) => {
+            res.status(200).json(token); 
+        })
 
         return res.status(200).json({
             success: true,
-            // accessToken: token,
+            accessToken: token,
             id: user._id,
             role: user.type,
         })
@@ -109,12 +112,18 @@ exports.update = async (req, res) => {
         const user = await User.findByIdAndUpdate(req.params.userID, req.body).exec();
 
         if (!user) {
-            return res.status(404).json({message: `Não é possível atualizar o utilizador com id=${req.params.userID}. Verifica se utilizador existe!`});
+            return res.status(404).json({success: false, msg: `Não é possível atualizar o utilizador com id=${req.params.userID}. Verifica se utilizador existe!`});
         }
-        res.status(200).json({message: `Utilizador id=${req.params.userID} foi atualizado com sucesso!`});
+        res.status(200).json({success: true, msg: `Utilizador id=${req.params.userID} foi atualizado com sucesso!`});
     } catch (err) {
-        res.status(500).json({message: `Erro ao atualizar o utilizador com id=${req.params.userID}`});
-    }   
+        if (err.name === "ValidationError") {
+            let errors = [];
+            Object.keys(err.errors).forEach(key => {
+                errors.push(err.errors[key].message);
+            });
+            return res.status(400).json({success: false, msg: `Erro ao alterar o utilizador com ID ${req.params.userID}.`})
+        }
+    }
 }
 
 exports.delete = async (req, res) => {
@@ -127,6 +136,12 @@ exports.delete = async (req, res) => {
             res.status(200).json({message: `Utilizador com id=${req.params.userID} foi excluído com sucesso`})
         }
     } catch (err) {
-        res.status(500).json({message: `Erro ao excluir o utilizador com o id=${req.params.userID}`});
-    };
+        if (err.name === "ValidationError") {
+            let errors = [];
+            Object.keys(err.errors).forEach(key => {
+                errors.push(err.errors[key].message);
+            });
+            return res.status(400).json({success: false, msg: `Erro ao excluir o utilizador com ID ${req.params.userID}.`})
+        }
+    }
 }
