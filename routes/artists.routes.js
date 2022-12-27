@@ -12,7 +12,7 @@ const { validationResult, body } = require('express-validator')
  */
 
 router.get('/', (req, res) => {
-    // artistsController.getAll(req, res)
+    artistsController.getAll(req, res)
 })
 
 /**
@@ -25,7 +25,7 @@ router.get('/', (req, res) => {
  * @returns {Error} 500 - Algo deu errado
  */
 router.get('/:id', (req,res) => {
-    // artistsController.findById(req, res)
+    artistsController.findById(req, res)
 })
 
 /**
@@ -46,7 +46,7 @@ router.post('/', [
 ] ,(req,res) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
-        //artistsController.create(req,res)
+        artistsController.create(req,res)
     } else {
         res.status(404).json({errors: errors.array()});
     }
@@ -65,7 +65,7 @@ router.post('/', [
  */
 
 router.put('/:id', (req, res) => {
-    // artistsController.update(req, res);
+    artistsController.update(req, res);
 })
 
 /**
@@ -80,7 +80,7 @@ router.put('/:id', (req, res) => {
  * @security Bearer
  */
 router.delete('/:id', (req, res) => {
-    // artistsController.delete(req, res);
+    artistsController.delete(req, res);
 })
 
 module.exports = router;
