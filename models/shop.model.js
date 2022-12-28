@@ -8,6 +8,6 @@ const schema = new mongoose.Schema(
         info: { type: String, required: [true, 'Falta uma descrição']},
     }
 );
-const News = mongoose.model("news", schema);
+const Shop = mongoose.model("shop", schema);
 
-module.exports = News;
+module.exports = Shop;
