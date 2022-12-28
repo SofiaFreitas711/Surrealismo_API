@@ -44,10 +44,10 @@ exports.getAll = async (req, res) => {
 
 exports.findById = async (req, res) => {
     try {
-        const artist = await Artists.findById(req.params.artistID).exec();
+        const artist = await Artists.findById(req.params.id).exec();
 
         if (artist === null) {
-            res.status(404).json({success: false, msg: `Não foi possível encontrar nenhum artista com o ID ${req.params.artistID}`})
+            res.status(404).json({success: false, msg: `Não foi possível encontrar nenhum artista com o ID ${req.params.id}`})
         }
 
         res.json({success: true, artist: artist})
@@ -57,17 +57,17 @@ exports.findById = async (req, res) => {
             Object.keys(err.errors).forEach(key => {
                 errors.push(err.errors[key].message);
             });
-            return res.status(400).json({success: false, msg: `Erro ao recuperar o artista com ID ${req.params.artistID}.`})
+            return res.status(400).json({success: false, msg: `Erro ao recuperar o artista com ID ${req.params.id}.`})
         }
     }
 }
 
 exports.update = async (req, res) => {
     try {
-        const artist = await Artists.findByIdAndUpdate(req.params.artistID, req.body).exec();
+        const artist = await Artists.findByIdAndUpdate(req.params.id, req.body).exec();
 
         if (!artist) {
-            return res.status(404).json({message: `Não é possível atualizar o artista com id=${req.params.artistID}. Verifica se o artista existe!`});
+            return res.status(404).json({message: `Não é possível atualizar o artista com id=${req.params.id}. Verifica se o artista existe!`});
         }
         res.status(200).json({message: `Artista atualizado com sucesso!`});
     } catch (err) {
@@ -77,14 +77,14 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
     try {
-        const artist = await Artists.findByIdAndRemove(req.params.artistID).exec()
+        const artist = await Artists.findByIdAndRemove(req.params.id).exec()
         
         if (!artist) {
-            res.status(404).json({message: `Não é possivel excluir o artista com id=${req.params.artistID}.`});
+            res.status(404).json({message: `Não é possivel excluir o artista com id=${req.params.id}.`});
         } else {
-            res.status(200).json({message: `Artista com id=${req.params.artistID} foi excluído com sucesso`})
+            res.status(200).json({message: `Artista com id=${req.params.id} foi excluído com sucesso`})
         }
     } catch (err) {
-        res.status(500).json({message: `Erro ao excluir o artista com o id=${req.params.artistID}`});
+        res.status(500).json({message: `Erro ao excluir o artista com o id=${req.params.id}`});
     };
 }

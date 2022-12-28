@@ -44,10 +44,10 @@ exports.getAll = async (req, res) => {
 
 exports.findById = async (req, res) => {
     try {
-        const shop = await Shop.findById(req.params.shopID).exec();
+        const shop = await Shop.findById(req.params.id).exec();
 
         if (shop === null) {
-            res.status(404).json({success: false, msg: `Não foi possível encontrar nenhuma oferta com o ID ${req.params.shopID}`})
+            res.status(404).json({success: false, msg: `Não foi possível encontrar nenhuma oferta com o ID ${req.params.id}`})
         }
 
         res.json({success: true, shop: shop})
@@ -57,17 +57,17 @@ exports.findById = async (req, res) => {
             Object.keys(err.errors).forEach(key => {
                 errors.push(err.errors[key].message);
             });
-            return res.status(400).json({success: false, msg: `Erro ao recuperar a oferta com ID ${req.params.shopID}.`})
+            return res.status(400).json({success: false, msg: `Erro ao recuperar a oferta com ID ${req.params.id}.`})
         }
     }
 }
 
 exports.update = async (req, res) => {
     try {
-        const shop = await Shop.findByIdAndUpdate(req.params.shopID, req.body).exec();
+        const shop = await Shop.findByIdAndUpdate(req.params.id, req.body).exec();
 
         if (!shop) {
-            return res.status(404).json({message: `Não é possível atualizar a oferta com id=${req.params.shopID}. Verifica se esta oferta existe!`});
+            return res.status(404).json({message: `Não é possível atualizar a oferta com id=${req.params.id}. Verifica se esta oferta existe!`});
         }
         res.status(200).json({message: `Oferta atualizada com sucesso!`});
     } catch (err) {
@@ -77,14 +77,14 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
     try {
-        const shop = await Shop.findByIdAndRemove(req.params.shopID).exec()
+        const shop = await Shop.findByIdAndRemove(req.params.id).exec()
         
         if (!shop) {
-            res.status(404).json({message: `Não é possivel excluir a oferta com id=${req.params.shopID}.`});
+            res.status(404).json({message: `Não é possivel excluir a oferta com id=${req.params.id}.`});
         } else {
-            res.status(200).json({message: `Oferta com id=${req.params.shopID} foi excluída com sucesso`})
+            res.status(200).json({message: `Oferta com id=${req.params.id} foi excluída com sucesso`})
         }
     } catch (err) {
-        res.status(500).json({message: `Erro ao excluir a oferta com o id=${req.params.shopID}`});
+        res.status(500).json({message: `Erro ao excluir a oferta com o id=${req.params.id}`});
     };
 }

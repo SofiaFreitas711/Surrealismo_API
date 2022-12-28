@@ -47,10 +47,10 @@ exports.getAll = async (req, res) => {
 
 exports.findById = async (req, res) => {
     try {
-        const news = await News.findById(req.params.newsID).exec();
+        const news = await News.findById(req.params.id).exec();
 
         if (news === null) {
-            res.status(404).json({success: false, msg: `Não foi possível encontrar nenhum evento com o ID ${req.params.newsID}`})
+            res.status(404).json({success: false, msg: `Não foi possível encontrar nenhum evento com o ID ${req.params.id}`})
         }
 
         res.json({success: true, news: news})
@@ -60,7 +60,7 @@ exports.findById = async (req, res) => {
             Object.keys(err.errors).forEach(key => {
                 errors.push(err.errors[key].message);
             });
-            return res.status(400).json({success: false, msg: `Erro ao recuperar o evento com ID ${req.params.newsID}.`})
+            return res.status(400).json({success: false, msg: `Erro ao recuperar o evento com ID ${req.params.id}.`})
         }
     }
 }
@@ -87,10 +87,10 @@ exports.findByType = async (req, res) => {
 
 exports.update = async (req, res) => {
     try {
-        const news = await News.findByIdAndUpdate(req.params.newsID, req.body).exec();
+        const news = await News.findByIdAndUpdate(req.params.id, req.body).exec();
 
         if (!news) {
-            return res.status(404).json({message: `Não é possível atualizar o evento com id=${req.params.newsID}. Verifica se o evento existe!`});
+            return res.status(404).json({message: `Não é possível atualizar o evento com id=${req.params.id}. Verifica se o evento existe!`});
         }
         res.status(200).json({message: `Evento atualizado com sucesso!`});
     } catch (err) {
@@ -100,14 +100,14 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
     try {
-        const news = await News.findByIdAndRemove(req.params.newsID).exec()
+        const news = await News.findByIdAndRemove(req.params.id).exec()
         
         if (!news) {
-            res.status(404).json({message: `Não é possivel excluir o evento com id=${req.params.newsID}.`});
+            res.status(404).json({message: `Não é possivel excluir o evento com id=${req.params.id}.`});
         } else {
-            res.status(200).json({message: `Evento com id=${req.params.newsID} foi excluído com sucesso`})
+            res.status(200).json({message: `Evento com id=${req.params.id} foi excluído com sucesso`})
         }
     } catch (err) {
-        res.status(500).json({message: `Erro ao excluir o evento com o id=${req.params.newsID}`});
+        res.status(500).json({message: `Erro ao excluir o evento com o id=${req.params.id}`});
     };
 }
