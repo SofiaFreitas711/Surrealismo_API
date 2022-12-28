@@ -44,7 +44,7 @@ router.get('/:type', (req,res) => {
 /**
  * @route Post /news/
  * @group News
- * @param {object} object.body - Formulário para adicionar nova noticia/evento - ex. {"name":"Noites Cadillac", "image":"https://www.cupertino.pt/media/4071/tm3c2a8018.jpg?anchor=center&mode=crop&width=555&upscale=false&rnd=133136720280000000", "day":"26-11-2022", "price":"3", "info":"Inserido nos Mário Cesariny - Encontros XVI, realiza-se no sábado, dia 26 de novembro, às 17h30, o espetáculo de Mafalda Veiga, intitulado 𝐍𝐨𝐢𝐭𝐞 𝐂𝐚𝐝𝐢𝐥𝐥𝐚𝐜.", "locality":"Fundação Cupertino de Miranda", "type":"Evento"}
+ * @param {object} object.body - Formulário para adicionar nova noticia/evento - ex. {"name":"Surrealismo na praça", "image":"sp.png", "day":"14-02-2023", "price":"0", "info":"Venha conhecer as nossas obras projetadas no jardim atrás da fundação", "locality":"Fundação Cupertino de Miranda", "type":"Evento"}
  * @returns {object} 201 - Criado com sucesso
  * @returns {Error} 400 - Dados em falta
  * @returns {Error} 401 - É preciso estar autenticado
@@ -72,7 +72,7 @@ router.post('/', [
 /**
  * @route Put /news/:id
  * @group News
- * @param {object} id.put - Formulário para alterar noticia/evento - ex. {"name":"Noites Cadillac", "image":"https://www.cupertino.pt/media/4071/tm3c2a8018.jpg?anchor=center&mode=crop&width=555&upscale=false&rnd=133136720280000000", "day":"26-11-2022", "price":"3", "info":"Inserido nos Mário Cesariny - Encontros XVI, realiza-se no sábado, dia 26 de novembro, às 17h30, o espetáculo de Mafalda Veiga, intitulado 𝐍𝐨𝐢𝐭𝐞 𝐂𝐚𝐝𝐢𝐥𝐥𝐚𝐜.", "locality":"Fundação Cupertino de Miranda", "type":"Evento"}
+ * @param {object} id.put - Formulário para alterar noticia/evento - ex. {"price":"5"}
  * @returns {object} 200 - Noticia alterada
  * @returns {Error} 401 - É preciso estar autenticado
  * @returns {Error} 403 - Utilizador sem permissão

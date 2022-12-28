@@ -6,7 +6,7 @@ const { validationResult, body } = require('express-validator')
 /**
  * @route GET /artists/
  * @group Artists
- * @param {object} object.body - Retorna todas as informações dos artistas - ex. {}
+ * @param {object} object.body - Retorna todas as informações dos artistas - ex. [{"name":"Mario Cesariny", "image":"mc.png", "info": "Pintor Português do movimento surrealista", "arts":["obra1.png"]}, {...}]
  * @returns {object} 200 - Bearer Token
  * @returns {Error} 500 - Algo deu errado
  */
@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 /**
  * @route GET /artists/:id
  * @group Artists
- * @param {object} object.body - Retorna a informação de um artista pesquisado pelo id - ex. {}
+ * @param {object} object.body - Retorna a informação de um artista pesquisado pelo id - ex. {"name":"Mario Cesariny", "image":"mc.png", "info": "Pintor Português do movimento surrealista", "arts":["obra1.png"]}
  * @returns {object} 200 - Bearer Token
  * @returns {Error} 400 - id inválido
  * @returns {Error} 404 - id não encontrado
@@ -31,7 +31,7 @@ router.get('/:id', (req,res) => {
 /**
  * @route Post /artists/
  * @group Artists
- * @param {object} object.body - Formulário para adicionar novo artista - ex. {}
+ * @param {object} object.body - Formulário para adicionar novo artista - ex. {"name":"Cruzeiro Seixas", "image":"cs.png", "info": "Pintor Português do movimento surrealista", "arts":["obra1.png"]}
  * @returns {object} 201 - Criado com sucesso
  * @returns {Error} 400 - Dados em falta
  * @returns {Error} 401 - É preciso estar autenticado
@@ -55,11 +55,11 @@ router.post('/', [
 /**
  * @route Put /artists/:id
  * @group Artists
- * @param {object} id.put - Formulário para alterar artista - ex. {}
- * @returns {object} 200 - Noticia alterada
+ * @param {object} id.put - Formulário para alterar artista - ex. {"info":"Pintor Português, ligado a fotografia"}
+ * @returns {object} 200 - Artista alterada
  * @returns {Error} 401 - É preciso estar autenticado
  * @returns {Error} 403 - Utilizador sem permissão
- * @returns {Error} 404 - Noticia não existe/encontrada
+ * @returns {Error} 404 - Artista não existe/encontrada
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
@@ -71,11 +71,11 @@ router.put('/:id', (req, res) => {
 /**
  * @route DELETE /artists/:id
  * @group Artists
- * @param {object} id.delete - Id da noticia
- * @returns {object} 204 - noticia eliminada
+ * @param {object} id.delete - Id do Artista
+ * @returns {object} 204 - Artista eliminada
  * @returns {Error} 401 - É preciso estar autenticado
  * @returns {Error} 403 - Utilizador sem permissão
- * @returns {Error} 404 - Noticia não existe/encontrada
+ * @returns {Error} 404 - Artista não existe/encontrada
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */

@@ -57,7 +57,7 @@ exports.findById = async (req, res) => {
             Object.keys(err.errors).forEach(key => {
                 errors.push(err.errors[key].message);
             });
-            return res.status(400).json({success: false, msg: `Erro ao recuperar o evento com ID ${req.params.artistID}.`})
+            return res.status(400).json({success: false, msg: `Erro ao recuperar o artista com ID ${req.params.artistID}.`})
         }
     }
 }
