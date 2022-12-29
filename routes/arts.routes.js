@@ -23,7 +23,7 @@ router.post('/', [
     body('data').notEmpty().escape(),
     body('info').notEmpty().escape(),
     body('artist').notEmpty().escape(),
-    body('localization').notEmpty().escape(),
+    body('location').notEmpty().escape(),
 ], (req, res) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {

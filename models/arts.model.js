@@ -20,7 +20,7 @@ const schema = new mongoose.Schema({
     artist: {
         type: mongoose.ObjectId
     },
-    localization: {
+    location: {
         type: String,
         required: [true, 'Falta a sua localização']
     }

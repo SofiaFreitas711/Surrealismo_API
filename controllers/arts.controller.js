@@ -6,8 +6,8 @@ exports.create = async (req, res) => {
         image: req.body.image,
         date: req.body.date,
         info: req.body.info,
-        localization: req.body.localization,
         artist: req.body.artists,
+        location: req.body.localization,
     })
 
     try {
