@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const artController = require('../controllers/arts.controller.js')
-const { validationResult, body } = require('express-validator')
+const {
+    validationResult,
+    body
+} = require('express-validator')
 
 /**
  * @route POST /arts/
  * @group Arts
- * @param {object} object.body - Formulario para adiconar a obra - ex. {"name":"nome da obra", "image":"image.jpeg", "data": "2020-06-15", "info": "texto exemplo", "localization": "Piso 3"} 
+ * @param {object} object.body - Formulario para adiconar a obra - ex. {"name":"nome da obra", "image":"image.jpeg", "date": "2020-06-15", "info": "texto exemplo", artist: "nome do artista", "localization": "Piso 3"} 
  * @returns {object} 201 - Obra adicionada
  * @returns {Error} 400 - Dados em falta
  * @returns {Error} 401 - É preciso estar autenticado
@@ -19,13 +22,16 @@ router.post('/', [
     body('image').notEmpty().escape(),
     body('data').notEmpty().escape(),
     body('info').notEmpty().escape(),
+    body('artist').notEmpty().escape(),
     body('localization').notEmpty().escape(),
 ], (req, res) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
-        // artController.create(req, res);
+        artController.create(req, res);
     } else {
-        res.status(404).json({errors: errors.array()});
+        res.status(404).json({
+            errors: errors.array()
+        });
     }
 })
 
@@ -36,7 +42,7 @@ router.post('/', [
  * @returns {Error} 500 - Algo deu errado
  */
 router.get('/', (req, res) => {
-    // artController.getAll(req, res);
+    artController.getAll(req, res);
 })
 
 /**
@@ -48,7 +54,7 @@ router.get('/', (req, res) => {
  * @returns {Error} 500 - Algo deu errado
  */
 router.get('/:id', (req, res) => {
-    // artController.findArt(req, res);
+    artController.findArt(req, res);
 })
 
 /**
@@ -64,7 +70,7 @@ router.get('/:id', (req, res) => {
  * @security Bearer
  */
 router.patch('/:id', (req, res) => {
-    // artController.update(req, res);
+    artController.update(req, res);
 })
 
 /**
@@ -79,7 +85,7 @@ router.patch('/:id', (req, res) => {
  * @security Bearer
  */
 router.delete('/:id', (req, res) => {
-    // artController.delete(req, res);
+    artController.delete(req, res);
 })
 
 module.exports = router;
