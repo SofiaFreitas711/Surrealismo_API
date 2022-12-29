@@ -5,7 +5,7 @@ const { validationResult, body } = require('express-validator')
 
 /**
  * @route GET /shop/
- * @group Trocas
+ * @group Shop
  * @param {object} object.body - Retorna todas as trocas disponiveis - ex. [{"name":"20% desconto no bilhete geral", "discount":"20", "amountPoints":"950", "info":" Com este desconto poderás obter um código de desconto no bilhete geral de visita da nossa Fundação! Vem ver os quadros que temos para te mostrar"},{...}]
  * @returns {object} 200 - Bearer Token
  * @returns {Error} 500 - Algo deu errado
@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 
 /**
  * @route GET /shop/:id
- * @group Trocas
+ * @group Shop
  * @param {object} object.body - Retorna a informação de uma troca pesquisado pelo id - ex. {"name":"20% desconto no bilhete geral", "discount":"20", "amountPoints":"950", "info":" Com este desconto poderás obter um código de desconto no bilhete geral de visita da nossa Fundação! Vem ver os quadros que temos para te mostrar"}
  * @returns {object} 200 - Bearer Token
  * @returns {Error} 400 - id inválido
@@ -30,7 +30,7 @@ router.get('/:id', (req,res) => {
 
 /**
  * @route Post /shop/
- * @group Trocas
+ * @group Shop
  * @param {object} object.body - Formulário para adicionar nova troca - ex. {"name":"Livro FCM", "discount":"100", "amountPoints":"2000", "info":" Um livro inspirado nas obras presentes da Fundação, onde podes deixar-te levar pela tua criatividade"}
  * @returns {object} 201 - Criado com sucesso
  * @returns {Error} 400 - Dados em falta
@@ -54,7 +54,7 @@ router.post('/', [
 
 /**
  * @route Put /shop/:id
- * @group Trocas
+ * @group Shop
  * @param {object} id.put - Formulário para alterar troca - ex. {"discount":"40"}
  * @returns {object} 200 - Troca alterada
  * @returns {Error} 401 - É preciso estar autenticado
@@ -70,7 +70,7 @@ router.put('/:id', (req, res) => {
 
 /**
  * @route DELETE /shop/:id
- * @group Trocas
+ * @group Shop
  * @param {object} id.delete - Id da troca
  * @returns {object} 204 - Troca eliminada
  * @returns {Error} 401 - É preciso estar autenticado
