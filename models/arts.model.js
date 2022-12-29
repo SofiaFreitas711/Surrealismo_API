@@ -10,7 +10,8 @@ const schema = new mongoose.Schema({
         required: [true, 'Imagem em falta.']
     },
     artist: {
-        type: mongoose.ObjectId
+        type: mongoose.Types.ObjectId,
+        required: [true, 'Falta o artista']
     },
     info: {
         type: String,
@@ -21,7 +22,7 @@ const schema = new mongoose.Schema({
         required: [true, 'Data em falta.']
     },
     technique: {
-        type: Date,
+        type: mongoose.Types.ObjectId,
         required: [true, 'Técnica em falta.']
     },
     location: {
