@@ -9,7 +9,7 @@ const {
 /**
  * @route POST /arts/
  * @group Arts
- * @param {object} object.body - Formulario para adiconar a obra - ex. {"name":"nome da obra", "image":"image.jpeg", "date": "2020-06-15", "info": "texto exemplo", artist: "nome do artista", "localization": "Piso 3"} 
+ * @param {object} object.body - Formulario para adiconar a obra - ex. {"name":"nome da obra", "image":"image.jpeg", artist: "nome do artista", "info": "texto exemplo", "date": "2020-06-15", "technique":"nome da técnica",  "location": "Piso 3"} 
  * @returns {object} 201 - Obra adicionada
  * @returns {Error} 400 - Dados em falta
  * @returns {Error} 401 - É preciso estar autenticado
@@ -20,9 +20,10 @@ const {
 router.post('/', [
     body('name').notEmpty().escape(),
     body('image').notEmpty().escape(),
-    body('date').notEmpty().escape(),
-    body('info').notEmpty().escape(),
     body('artist').notEmpty().escape(),
+    body('info').notEmpty().escape(),
+    body('date').notEmpty().escape(),
+    body('technique').notEmpty().escape(),
     body('location').notEmpty().escape(),
 ], (req, res) => {
     const errors = validationResult(req);

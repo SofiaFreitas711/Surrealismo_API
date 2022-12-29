@@ -4,9 +4,10 @@ exports.create = async (req, res) => {
     const art = new Arts({
         name: req.body.name,
         image: req.body.image,
-        date: req.body.date,
-        info: req.body.info,
         artist: req.body.artists,
+        info: req.body.info,
+        date: req.body.date,
+        technique: req.body.artists,
         location: req.body.localization,
     })
 
