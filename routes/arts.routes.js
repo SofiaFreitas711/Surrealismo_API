@@ -20,7 +20,7 @@ const {
 router.post('/', [
     body('name').notEmpty().escape(),
     body('image').notEmpty().escape(),
-    body('data').notEmpty().escape(),
+    body('date').notEmpty().escape(),
     body('info').notEmpty().escape(),
     body('artist').notEmpty().escape(),
     body('location').notEmpty().escape(),
