@@ -41,19 +41,19 @@ router.get('/', (req, res) => {
 })
 
 /**
- * @route GET /techniques/:id
+ * @route GET /techniques/:techniqueID
  * @group Technique
  * @param {object} id.patch - Id da técnica
  * @returns {object} 200 - Técnica
  * @returns {Error} 404 - Técnica não existe/encontrado
  * @returns {Error} 500 - Algo de errado aconteceu
  */
-router.get('/:id', (req, res) => {
+router.get('/:techniqueID', (req, res) => {
     techniqueController.findTechnique(req, res);
 })
 
 /**
- * @route PATCH /techniques/:id
+ * @route PATCH /techniques/:techniqueID
  * @group Technique
  * @param {object} object.body - Alterar alguma informação da técnica - ex. {"name":"nome da técnica"} 
  * @param {object} id.patch - Id da técnica
@@ -64,12 +64,12 @@ router.get('/:id', (req, res) => {
  * @returns {Error} 500 - Algo de errado aconteceu
  * @security Bearer
  */
-router.patch('/:id', (req, res) => {
+router.patch('/:techniqueID', (req, res) => {
     techniqueController.update(req, res);
 })
 
 /**
- * @route DELETE /techniques/:id
+ * @route DELETE /techniques/:techniqueID
  * @group Technique
  * @param {object} id.patch - Id da técnica
  * @returns {object} 204 - Técnica eliminada
@@ -79,7 +79,7 @@ router.patch('/:id', (req, res) => {
  * @returns {Error} 500 - Algo de errado aconteceu
  * @security Bearer
  */
-router.delete('/:id', (req, res) => {
+router.delete('/:techniqueID', (req, res) => {
     techniqueController.delete(req, res);
 })
 

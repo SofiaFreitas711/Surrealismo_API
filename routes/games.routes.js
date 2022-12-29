@@ -41,7 +41,7 @@ router.get('/', (req, res) => {
 })
 
 /**
- * @route GET /games/:id
+ * @route GET /games/:gameID
  * @group Games
  * @param {object} id.patch - Id do jogo
  * @returns {object} 200 - Jogo
@@ -55,7 +55,7 @@ router.get('/:gameID', (req, res) => {
 })
 
 /**
- * @route PATCH /games/:id
+ * @route PATCH /games/:gameID
  * @group Games
  * @param {object} object.body - Alterar alguma informação do jogo - ex. {"name":"game", "image":"image.jpeg", "questions": [{"question": "question example", "alternatives": ['b1', 'b2', 'b3', 'b4'], "answer": "b1"}], "points": 200} 
  * @param {object} id.patch - Id do jogo
@@ -71,7 +71,7 @@ router.patch('/:gameID', (req, res) => {
 })
 
 /**
- * @route DELETE /games/:id
+ * @route DELETE /games/:gameID
  * @group Games
  * @param {object} id.patch - Id do jogo
  * @returns {object} 204 - Jogo eliminado

@@ -53,7 +53,7 @@ router.get('/', (req, res) => {
 })
 
 /**
- * @route GET /users/:id
+ * @route GET /users/:userID
  * @group Users
  * @param {object} id.patch - Id do utilizador
  * @returns {object} 200 - User info
@@ -68,7 +68,7 @@ router.get('/:userID', (req, res) => {
 })
 
 /**
- * @route PATCH /users/:id
+ * @route PATCH /users/:userID
  * @group Users
  * @param {object} object.body - Altera as informações do utilizador - ex. {"password": "123456", "email": "adim@example.com", "image": "image.jpg", "locality": "Gaia", "type": "admin"}
  * @param {object} id.patch - Id do utilizador
@@ -84,7 +84,7 @@ router.patch('/:userID', (req, res) => {
 })
 
 /**
- * @route DELETE /users/:id
+ * @route DELETE /users/:userID
  * @group Users
  * @param {object} id.patch - Id do utilizador
  * @returns {object} 204 - Utilizador eliminado
