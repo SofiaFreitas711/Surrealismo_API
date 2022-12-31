@@ -6,7 +6,6 @@ exports.create = async(req, res) => {
         name: req.body.name,
         image: req.body.image,
         info: req.body.info,
-        arts: req.body.arts,
     })
 
     try {
@@ -28,7 +27,7 @@ exports.getAll = async (req, res) => {
     try {
         let data = await Artists
             .find()
-            .select('name image type')
+            .select('name image born death')
             .exec();
         res.status(200).json({ success: true, artist: data });
     } catch (err) {

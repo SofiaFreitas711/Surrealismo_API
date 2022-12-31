@@ -41,7 +41,7 @@ router.get('/:id', (req,res) => {
  */
 router.post('/', [
     body('name').notEmpty().escape(),
-    body('image').notEmpty().escape(),
+    body('discount').notEmpty().escape(),
     body('info').notEmpty().escape(),
 ] , isAdmin, (req,res) => {
     const errors = validationResult(req);

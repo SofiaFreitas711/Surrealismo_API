@@ -6,7 +6,7 @@ const { validationResult, body } = require('express-validator')
 /**
  * @route GET /news/
  * @group News
- * @param {object} object.body - Retorna todas as informações das noticias e eventos - ex. [{"name":"Noites Cadillac", "image":"https://www.cupertino.pt/media/4071/tm3c2a8018.jpg?anchor=center&mode=crop&width=555&upscale=false&rnd=133136720280000000", "day":"26-11-2022", "price":"3", "info":"Inserido nos Mário Cesariny - Encontros XVI, realiza-se no sábado, dia 26 de novembro, às 17h30, o espetáculo de Mafalda Veiga, intitulado 𝐍𝐨𝐢𝐭𝐞 𝐂𝐚𝐝𝐢𝐥𝐥𝐚𝐜.", "locality":"Fundação Cupertino de Miranda", "type":"Evento"},...]
+ * @param {object} object.body - Retorna todas as informações das noticias e eventos - ex. [{"name":"Noites Cadillac", "image":"https://www.cupertino.pt/media/4071/tm3c2a8018.jpg?anchor=center&mode=crop&width=555&upscale=false&rnd=133136720280000000", "day":"26-11-2022", "price":"3", "info":"Inserido nos Mário Cesariny - Encontros XVI, realiza-se no sábado, dia 26 de novembro, às 17h30, o espetáculo de Mafalda Veiga, intitulado 𝐍𝐨𝐢𝐭𝐞 𝐂𝐚𝐝𝐢𝐥𝐥𝐚𝐜.", "localization":"Fundação Cupertino de Miranda", "type":"Evento"},...]
  * @returns {object} 200 - Bearer Token
  * @returns {Error} 500 - Algo deu errado
  */
@@ -16,22 +16,9 @@ router.get('/', (req, res) => {
 })
 
 /**
- * @route GET /news/:id
- * @group News
- * @param {object} object.body - Retorna a informação de uma noticia ou evento pesquisado pelo id - ex. {"name":"Noites Cadillac", "image":"https://www.cupertino.pt/media/4071/tm3c2a8018.jpg?anchor=center&mode=crop&width=555&upscale=false&rnd=133136720280000000", "day":"26-11-2022", "price":"3", "info":"Inserido nos Mário Cesariny - Encontros XVI, realiza-se no sábado, dia 26 de novembro, às 17h30, o espetáculo de Mafalda Veiga, intitulado 𝐍𝐨𝐢𝐭𝐞 𝐂𝐚𝐝𝐢𝐥𝐥𝐚𝐜.", "locality":"Fundação Cupertino de Miranda", "type":"Evento"}
- * @returns {object} 200 - Bearer Token
- * @returns {Error} 400 - id inválido
- * @returns {Error} 404 - id não encontrado
- * @returns {Error} 500 - Algo deu errado
- */
-router.get('/:id', (req,res) => {
-    newsController.findById(req, res)
-})
-
-/**
  * @route GET /news/:type
  * @group News
- * @param {object} object.body - Retorna a informação de uma noticia ou evento pesquisado pelo id - ex. [{"name":"Noites Cadillac", "image":"https://www.cupertino.pt/media/4071/tm3c2a8018.jpg?anchor=center&mode=crop&width=555&upscale=false&rnd=133136720280000000", "day":"26-11-2022", "price":"3", "info":"Inserido nos Mário Cesariny - Encontros XVI, realiza-se no sábado, dia 26 de novembro, às 17h30, o espetáculo de Mafalda Veiga, intitulado 𝐍𝐨𝐢𝐭𝐞 𝐂𝐚𝐝𝐢𝐥𝐥𝐚𝐜.", "locality":"Fundação Cupertino de Miranda", "type":"Evento"},...]
+ * @param {object} object.body - Retorna a informação de uma noticia ou evento pesquisado pelo id - ex. [{"name":"Noites Cadillac", "image":"https://www.cupertino.pt/media/4071/tm3c2a8018.jpg?anchor=center&mode=crop&width=555&upscale=false&rnd=133136720280000000", "day":"26-11-2022", "price":"3", "info":"Inserido nos Mário Cesariny - Encontros XVI, realiza-se no sábado, dia 26 de novembro, às 17h30, o espetáculo de Mafalda Veiga, intitulado 𝐍𝐨𝐢𝐭𝐞 𝐂𝐚𝐝𝐢𝐥𝐥𝐚𝐜.", "localization":"Fundação Cupertino de Miranda", "type":"Evento"},...]
  * @returns {object} 200 - Bearer Token
  * @returns {Error} 400 - Tipo inválido
  * @returns {Error} 404 - Tipo não encontrado
@@ -42,9 +29,22 @@ router.get('/:type', (req,res) => {
 })
 
 /**
+ * @route GET /news/:id
+ * @group News
+ * @param {object} object.body - Retorna a informação de uma noticia ou evento pesquisado pelo id - ex. {"name":"Noites Cadillac", "image":"https://www.cupertino.pt/media/4071/tm3c2a8018.jpg?anchor=center&mode=crop&width=555&upscale=false&rnd=133136720280000000", "day":"26-11-2022", "price":"3", "info":"Inserido nos Mário Cesariny - Encontros XVI, realiza-se no sábado, dia 26 de novembro, às 17h30, o espetáculo de Mafalda Veiga, intitulado 𝐍𝐨𝐢𝐭𝐞 𝐂𝐚𝐝𝐢𝐥𝐥𝐚𝐜.", "localization":"Fundação Cupertino de Miranda", "type":"Evento"}
+ * @returns {object} 200 - Bearer Token
+ * @returns {Error} 400 - id inválido
+ * @returns {Error} 404 - id não encontrado
+ * @returns {Error} 500 - Algo deu errado
+ */
+router.get('/:id', (req,res) => {
+    newsController.findById(req, res)
+})
+
+/**
  * @route Post /news/
  * @group News
- * @param {object} object.body - Formulário para adicionar nova noticia/evento - ex. {"name":"Surrealismo na praça", "image":"sp.png", "day":"14-02-2023", "price":"0", "info":"Venha conhecer as nossas obras projetadas no jardim atrás da fundação", "locality":"Fundação Cupertino de Miranda", "type":"Evento"}
+ * @param {object} object.body - Formulário para adicionar nova noticia/evento - ex. {"name":"Surrealismo na praça", "image":"sp.png", "day":"14-02-2023", "price":"0", "info":"Venha conhecer as nossas obras projetadas no jardim atrás da fundação", "localization":"Fundação Cupertino de Miranda", "type":"Evento"}
  * @returns {object} 201 - Criado com sucesso
  * @returns {Error} 400 - Dados em falta
  * @returns {Error} 401 - É preciso estar autenticado
