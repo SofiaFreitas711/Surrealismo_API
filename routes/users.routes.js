@@ -48,7 +48,7 @@ router.post('/register', [
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.get('/', (req, res) => {
+router.get('/', isAdmin, (req, res) => {
     userController.getAll(req, res);
 })
 
@@ -94,7 +94,7 @@ router.patch('/:userID', (req, res) => {
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.delete('/:userID', (req, res) => {
+router.delete('/:userID', isAdmin, (req, res) => {
     userController.delete(req, res);
 })
 

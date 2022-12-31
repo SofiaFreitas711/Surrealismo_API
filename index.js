@@ -1,4 +1,4 @@
-require('dotenv').config();         // read environment variables from .env file
+require('dotenv').config(); // read environment variables from .env file
 const express = require('express');
 const mongoose = require('mongoose');
 
@@ -10,16 +10,16 @@ const options = require('./swagger_conf.js');
 expressSwagger(options);
 
 
-const auth = function(req, res, next) {
-    let exceptions = ['/api-docs', '/users/login', '/users/register'];  //colocar aqui todas as rotas que não precisa de login
-    if(exceptions.indexOf(req.url) >= 0) {
-        next(); 
+const auth = function (req, res, next) {
+    let exceptions = ['/api-docs', '/users/login', '/users/register', '/arts', '/arts/:id', '/news', '/news/:id', '/artists', '/artists/:id', '/shop', '/shop/:id'];
+    if (exceptions.indexOf(req.url) >= 0) {
+        next();
     } else {
         utilities.validateToken(req.headers.authorization, (result) => {
-            if(result) {
-                next(); 
+            if (result) {
+                next();
             } else {
-                res.status(401).send("Invalid Token"); 
+                res.status(401).send("Invalid Token");
             }
         })
     }
@@ -29,9 +29,12 @@ app.use(express.json()); //enable parsing JSON body data
 
 // root route -- /api/
 app.get('/', function (req, res) {
-    res.status(200).json({ message: 'Welcome Surrealismo-API' });
+    res.status(200).json({
+        message: 'Welcome Surrealismo-API'
+    });
 });
-// app.use(auth); 
+
+app.use(auth);
 
 
 // routing middleware
@@ -44,7 +47,10 @@ app.use('/shop', require('./routes/shop.routes.js'))
 app.use('/techniques', require('./routes/techniques.routes.js'))
 
 
-mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.on3a1.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.on3a1.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.on('open', () => {
@@ -53,6 +59,8 @@ db.on('open', () => {
 
 // handle invalid routes
 app.get('*', function (req, res) {
-    res.status(404).json({ message: 'WHAT???' });
+    res.status(404).json({
+        message: 'WHAT???'
+    });
 })
 app.listen(port, () => console.log(`App listening at http://localhost:${port}`));

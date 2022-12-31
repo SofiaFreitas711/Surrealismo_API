@@ -66,7 +66,7 @@ router.get('/:gameID', (req, res) => {
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.patch('/:gameID', (req, res) => {
+router.patch('/:gameID', isAdmin, (req, res) => {
     gameController.update(req, res);
 })
 
@@ -81,7 +81,7 @@ router.patch('/:gameID', (req, res) => {
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.delete('/:gameID', (req, res) => {
+router.delete('/:gameID', isAdmin, (req, res) => {
     gameController.delete(req, res);
 })
 

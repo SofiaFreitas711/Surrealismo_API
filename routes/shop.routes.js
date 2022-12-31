@@ -43,7 +43,7 @@ router.post('/', [
     body('name').notEmpty().escape(),
     body('image').notEmpty().escape(),
     body('info').notEmpty().escape(),
-] ,(req,res) => {
+] , isAdmin, (req,res) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         shopController.create(req,res)
@@ -64,7 +64,7 @@ router.post('/', [
  * @security Bearer
  */
 
-router.put('/:id', (req, res) => {
+router.put('/:id', isAdmin, (req, res) => {
     shopController.update(req, res);
 })
 
@@ -79,7 +79,7 @@ router.put('/:id', (req, res) => {
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.delete('/:id', (req, res) => {
+router.delete('/:id',  isAdmin, (req, res) => {
     shopController.delete(req, res);
 })
 
