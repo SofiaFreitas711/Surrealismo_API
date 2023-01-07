@@ -67,7 +67,7 @@ exports.findById = async (req, res) => {
 
 exports.findByType = async (req, res) => {
     try {
-        const news = await News.findById(req.params.type).exec();
+        const news = await News.find({type:req.params.type}).exec();
 
         if (news === null) {
             res.status(404).json({success: false, msg: `Não foi possível encontrar nenhum artigo do tipo ${req.params.type}`})
