@@ -25,7 +25,7 @@ router.post('/', [
     body('date').notEmpty().escape(),
     body('technique').notEmpty().escape(),
     body('location').notEmpty().escape(),
-], (req, res) => {
+], isAdmin, (req, res) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         artController.create(req, res);
@@ -70,7 +70,7 @@ router.get('/:id', (req, res) => {
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.patch('/:id', (req, res) => {
+router.patch('/:id', isAdmin, (req, res) => {
     artController.update(req, res);
 })
 
@@ -85,7 +85,7 @@ router.patch('/:id', (req, res) => {
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.delete('/:id', (req, res) => {
+router.delete('/:id', isAdmin, (req, res) => {
     artController.delete(req, res);
 })
 

@@ -22,5 +22,13 @@ const validateToken = (token, callback) => {
     })
 }
 
+const isAdmin = (req, res, next) => {
+    if (req.user.roles === 'admin') {
+      return next();
+    }
+    res.redirect('/');
+  };
+
 exports.generateToken = generateToken
 exports.validateToken = validateToken
+exports.isAdmin = isAdmin

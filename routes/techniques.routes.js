@@ -19,7 +19,7 @@ const {
  */
 router.post('/', [
     body('name').notEmpty().escape(),
-], (req, res) => {
+], isAdmin, (req, res) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         techniqueController.create(req, res);
@@ -64,7 +64,7 @@ router.get('/:techniqueID', (req, res) => {
  * @returns {Error} 500 - Algo de errado aconteceu
  * @security Bearer
  */
-router.patch('/:techniqueID', (req, res) => {
+router.patch('/:techniqueID', isAdmin, (req, res) => {
     techniqueController.update(req, res);
 })
 
@@ -79,7 +79,7 @@ router.patch('/:techniqueID', (req, res) => {
  * @returns {Error} 500 - Algo de errado aconteceu
  * @security Bearer
  */
-router.delete('/:techniqueID', (req, res) => {
+router.delete('/:techniqueID', isAdmin, (req, res) => {
     techniqueController.delete(req, res);
 })
 
