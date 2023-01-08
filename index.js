@@ -9,33 +9,13 @@ const expressSwagger = require('express-swagger-generator')(app);
 const options = require('./swagger_conf.js');
 expressSwagger(options);
 
-
-const auth = function (req, res, next) {
-    let exceptions = ['/api-docs', '/users/login', '/users/register', '/arts', '/arts/:id', '/news', '/news/:id', '/artists', '/artists/:id', '/shop', '/shop/:id'];
-    if (exceptions.indexOf(req.url) >= 0) {
-        next();
-    } else {
-        utilities.validateToken(req.headers.authorization, (result) => {
-            if (result) {
-                next();
-            } else {
-                res.status(401).send("Invalid Token");
-            }
-        })
-    }
-}
-
 app.use(express.json()); //enable parsing JSON body data
-
 // root route -- /api/
 app.get('/', function (req, res) {
     res.status(200).json({
         message: 'Welcome Surrealismo-API'
     });
 });
-
-app.use(auth);
-
 
 // routing middleware
 app.use('/users', require('./routes/users.routes.js'))

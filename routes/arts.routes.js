@@ -5,6 +5,7 @@ const {
     validationResult,
     body
 } = require('express-validator')
+const utilities = require('../utilities/utilities.js');
 
 /**
  * @route POST /arts/
@@ -17,7 +18,9 @@ const {
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.post('/', [
+router.post('/',
+utilities.isAdmin,
+[
     body('name').notEmpty().escape(),
     body('image').notEmpty().escape(),
     body('artist').notEmpty().escape(),
@@ -25,7 +28,7 @@ router.post('/', [
     body('date').notEmpty().escape(),
     body('technique').notEmpty().escape(),
     body('location').notEmpty().escape(),
-], isAdmin, (req, res) => {
+], (req, res) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         artController.create(req, res);
@@ -70,7 +73,8 @@ router.get('/:id', (req, res) => {
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.patch('/:id', isAdmin, (req, res) => {
+router.patch('/:id', utilities.isAdmin, (req, res) => {
+    utilities.validateToken(req, res);
     artController.update(req, res);
 })
 
@@ -85,7 +89,7 @@ router.patch('/:id', isAdmin, (req, res) => {
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.delete('/:id', isAdmin, (req, res) => {
+router.delete('/:id', utilities.isAdmin, (req, res) => {
     artController.delete(req, res);
 })
 

@@ -20,15 +20,13 @@ exports.login = async (req, res) => {
             })
         }
 
-        const token = utilities.generateToken({user: req.body.username}, (token) => {
-            res.status(200).json(token); 
-        })
+        const token = utilities.generateToken({id: user._id, type: user.type})
 
         return res.status(200).json({
             success: true,
             accessToken: token,
             id: user._id,
-            role: user.type,
+            type: user.type,
         })
     } catch (err) {
         if (err.name === "ValidationError") {

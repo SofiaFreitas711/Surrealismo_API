@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const newsController = require('../controllers/news.controller.js')
-const { validationResult, body } = require('express-validator')
+const newsController = require('../controllers/news.controller.js');
+const { validationResult, body } = require('express-validator');
+const utilities = require('../utilities/utilities.js');
 
 /**
  * @route GET /news/
@@ -15,6 +16,8 @@ router.get('/', (req, res) => {
     newsController.getAll(req, res)
 })
 
+
+// Não funcional no momento
 /**
  * @route GET /news/:type
  * @group News
@@ -24,9 +27,9 @@ router.get('/', (req, res) => {
  * @returns {Error} 404 - Tipo não encontrado
  * @returns {Error} 500 - Algo deu errado
  */
-router.get('/:type', (req,res) => {
-    newsController.findByType(req,res)
-})
+// router.get('/:type', (req,res) => {
+//     newsController.findByType(req,res)
+// })
 
 /**
  * @route GET /news/:id
@@ -52,7 +55,9 @@ router.get('/:id', (req,res) => {
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.post('/', [
+router.post('/', 
+utilities.isAdmin,
+[
     body('name').notEmpty().escape(),
     body('image').notEmpty().escape(),
     body('day').notEmpty().escape(),
@@ -60,7 +65,7 @@ router.post('/', [
     body('info').notEmpty().escape(),
     body('localization').notEmpty().escape(),
     body('type').notEmpty().escape(),
-] , isAdmin, (req,res) => {
+] , /*isAdmin,*/ (req,res, next) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         newsController.create(req,res)
@@ -81,7 +86,7 @@ router.post('/', [
  * @security Bearer
  */
 
-router.put('/:id', isAdmin, (req, res) => {
+router.put('/:id', utilities.isAdmin, (req, res) => {
     newsController.update(req, res);
 })
 
@@ -96,7 +101,7 @@ router.put('/:id', isAdmin, (req, res) => {
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.delete('/:id', isAdmin, (req, res) => {
+router.delete('/:id', utilities.isAdmin, (req, res) => {
     newsController.delete(req, res);
 })
 

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const artistsController = require('../controllers/artists.controller.js')
 const { validationResult, body } = require('express-validator')
+const utilities = require('../utilities/utilities.js');
 
 /**
  * @route GET /artists/
@@ -39,11 +40,13 @@ router.get('/:id', (req,res) => {
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.post('/', [
+router.post('/',
+utilities.isAdmin,
+[
     body('name').notEmpty().escape(),
     body('image').notEmpty().escape(),
     body('info').notEmpty().escape(),
-] , isAdmin,(req,res) => {
+] ,  (req,res) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         artistsController.create(req,res)
@@ -63,8 +66,7 @@ router.post('/', [
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-
-router.put('/:id', isAdmin, (req, res) => {
+router.put('/:id', utilities.isAdmin, (req, res) => {
     artistsController.update(req, res);
 })
 
@@ -79,7 +81,7 @@ router.put('/:id', isAdmin, (req, res) => {
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.delete('/:id', isAdmin, (req, res) => {
+router.delete('/:id', utilities.isAdmin, (req, res) => {
     artistsController.delete(req, res);
 })
 

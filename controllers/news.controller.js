@@ -28,9 +28,13 @@ exports.create = async(req, res) => {
 }
 
 exports.getAll = async (req, res) => {
+    const type = req.query.type;
+
+    const condition = type ? {type: new RegExp(type, 'i')} : {};
+
     try {
         let data = await News
-            .find()
+            .find(condition)
             .select('name image type')
             .exec();
         res.status(200).json({ success: true, news: data });
@@ -65,25 +69,25 @@ exports.findById = async (req, res) => {
     }
 }
 
-exports.findByType = async (req, res) => {
-    try {
-        const news = await News.find({type:req.params.type}).exec();
+// exports.findByType = async (req, res) => {
+//     try {
+//         const news = await News.find({type:req.params.type}).exec();
 
-        if (news === null) {
-            res.status(404).json({success: false, msg: `Não foi possível encontrar nenhum artigo do tipo ${req.params.type}`})
-        }
+//         if (news === null) {
+//             res.status(404).json({success: false, msg: `Não foi possível encontrar nenhum artigo do tipo ${req.params.type}`})
+//         }
 
-        res.json({success: true, news: news})
-    } catch (err) {
-        if (err.name === "ValidationError") {
-            let errors = [];
-            Object.keys(err.errors).forEach(key => {
-                errors.push(err.errors[key].message);
-            });
-            return res.status(400).json({success: false, msg: `Erro ao recuperar artigos do tipo ${req.params.type}.`})
-        }
-    }
-}
+//         res.json({success: true, news: news})
+//     } catch (err) {
+//         if (err.name === "ValidationError") {
+//             let errors = [];
+//             Object.keys(err.errors).forEach(key => {
+//                 errors.push(err.errors[key].message);
+//             });
+//             return res.status(400).json({success: false, msg: `Erro ao recuperar artigos do tipo ${req.params.type}.`})
+//         }
+//     }
+// }
 
 exports.update = async (req, res) => {
     try {

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const gameController = require('../controllers/games.controller.js')
 const { validationResult, body } = require('express-validator')
+const utilities = require('../utilities/utilities.js');
 
 /**
  * @route POST /games/
@@ -14,7 +15,9 @@ const { validationResult, body } = require('express-validator')
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.post('/', [
+router.post('/', 
+utilities.isAdmin,
+[
     body('name').notEmpty().escape(),
     body('image').notEmpty().escape(),
     body('questions').notEmpty(),
@@ -36,7 +39,7 @@ router.post('/', [
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.get('/', (req, res) => {
+router.get('/', utilities.validateToken, (req, res) => {
     gameController.getAll(req, res);
 })
 
@@ -50,7 +53,7 @@ router.get('/', (req, res) => {
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.get('/:gameID', (req, res) => {
+router.get('/:gameID', utilities.validateToken, (req, res) => {
     gameController.findGame(req, res);
 })
 
@@ -66,7 +69,7 @@ router.get('/:gameID', (req, res) => {
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.patch('/:gameID', isAdmin, (req, res) => {
+router.patch('/:gameID', utilities.isAdmin, (req, res) => {
     gameController.update(req, res);
 })
 
@@ -81,7 +84,7 @@ router.patch('/:gameID', isAdmin, (req, res) => {
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.delete('/:gameID', isAdmin, (req, res) => {
+router.delete('/:gameID', utilities.isAdmin, (req, res) => {
     gameController.delete(req, res);
 })
 

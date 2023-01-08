@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/users.controller.js')
 const { validationResult, body } = require('express-validator')
+const utilities = require('../utilities/utilities.js')
 
 /**
  * @route POST /users/login
@@ -48,7 +49,7 @@ router.post('/register', [
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.get('/', isAdmin, (req, res) => {
+router.get('/', utilities.isAdmin, (req, res) => {
     userController.getAll(req, res);
 })
 
@@ -63,7 +64,7 @@ router.get('/', isAdmin, (req, res) => {
  * @returns {Error} 500 - Internal server error
  * @security Bearer
  */
-router.get('/:userID', (req, res) => {
+router.get('/:userID', utilities.validateToken, (req, res) => {
     userController.findUser(req, res);
 })
 
@@ -79,7 +80,7 @@ router.get('/:userID', (req, res) => {
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.patch('/:userID', (req, res) => {
+router.patch('/:userID', utilities.validateToken, (req, res) => {
     userController.update(req, res);
 })
 
@@ -94,7 +95,7 @@ router.patch('/:userID', (req, res) => {
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.delete('/:userID', isAdmin, (req, res) => {
+router.delete('/:userID', utilities.validateToken, (req, res) => {
     userController.delete(req, res);
 })
 

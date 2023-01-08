@@ -5,6 +5,7 @@ const {
     validationResult,
     body
 } = require('express-validator')
+const utilities = require('../utilities/utilities.js');
 
 /**
  * @route POST /techniques/
@@ -17,9 +18,11 @@ const {
  * @returns {Error} 500 - Algo de errado aconteceu
  * @security Bearer
  */
-router.post('/', [
+router.post('/', 
+utilities.isAdmin,
+[
     body('name').notEmpty().escape(),
-], isAdmin, (req, res) => {
+], (req, res) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         techniqueController.create(req, res);
@@ -64,7 +67,7 @@ router.get('/:techniqueID', (req, res) => {
  * @returns {Error} 500 - Algo de errado aconteceu
  * @security Bearer
  */
-router.patch('/:techniqueID', isAdmin, (req, res) => {
+router.patch('/:techniqueID', utilities.isAdmin, (req, res) => {
     techniqueController.update(req, res);
 })
 
@@ -79,7 +82,7 @@ router.patch('/:techniqueID', isAdmin, (req, res) => {
  * @returns {Error} 500 - Algo de errado aconteceu
  * @security Bearer
  */
-router.delete('/:techniqueID', isAdmin, (req, res) => {
+router.delete('/:techniqueID', utilities.isAdmin, (req, res) => {
     techniqueController.delete(req, res);
 })
 

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const shopController = require('../controllers/shop.controller.js')
 const { validationResult, body } = require('express-validator')
+const utilities = require('../utilities/utilities.js');
 
 /**
  * @route GET /shop/
@@ -39,11 +40,13 @@ router.get('/:id', (req,res) => {
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.post('/', [
+router.post('/', 
+utilities.isAdmin,
+[
     body('name').notEmpty().escape(),
     body('discount').notEmpty().escape(),
     body('info').notEmpty().escape(),
-] , isAdmin, (req,res) => {
+] , /*isAdmin,*/ (req,res) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         shopController.create(req,res)
@@ -64,7 +67,7 @@ router.post('/', [
  * @security Bearer
  */
 
-router.put('/:id', isAdmin, (req, res) => {
+router.put('/:id', utilities.isAdmin, (req, res) => {
     shopController.update(req, res);
 })
 
@@ -79,7 +82,7 @@ router.put('/:id', isAdmin, (req, res) => {
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.delete('/:id',  isAdmin, (req, res) => {
+router.delete('/:id', utilities.isAdmin, (req, res) => {
     shopController.delete(req, res);
 })
 
