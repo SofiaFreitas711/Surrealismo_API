@@ -33,9 +33,11 @@ exports.create = async (req, res) => {
 }
 
 exports.getAll = async (req, res) => {
+    const type = req.query.type;
+    const condition = type ? {type: new RegExp(type, 'i')} : {};
     try {
         let data = await Arts
-            .find()
+            .find(condition)
             .select('image artist techniques')
             .exec();
         res.status(200).json({
