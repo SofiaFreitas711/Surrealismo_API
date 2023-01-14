@@ -33,12 +33,13 @@ exports.create = async (req, res) => {
 }
 
 exports.getAll = async (req, res) => {
-    const type = req.query.type;
-    const condition = type ? {type: new RegExp(type, 'i')} : {};
+    const technique = req.query.technique;
+    const artist = req.query.artist;
+    const condition = technique ? {technique: technique} : artist ? {artist: artist} : {};
     try {
         let data = await Arts
             .find(condition)
-            .select('image artist techniques')
+            .select('image artist technique')
             .exec();
         res.status(200).json({
             success: true,
