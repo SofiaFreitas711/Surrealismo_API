@@ -4,10 +4,10 @@ const bcrypt = require('bcrypt')
 
 exports.login = async (req, res) => {
     try {
-        let user = await User.findOne({name: req.body.name});
+        let user = await User.findOne({email: req.body.email});
 
         if (!user) {
-            return res.status(404).json({success: false, msg: "Utilizador não encontrado"});
+            return res.status(404).json({success: false, msg: "Email invalido"});
         }
 
         const check = req.body.password = user.password;
