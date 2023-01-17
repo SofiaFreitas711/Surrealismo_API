@@ -10,7 +10,7 @@ exports.login = async (req, res) => {
             return res.status(404).json({success: false, msg: "Email invalido"});
         }
 
-        const check = req.body.password = user.password;
+        const check = bcrypt.compareSync(req.body.password, user.password);
 
         if (!check) {
             return res.status(401).json({
@@ -45,7 +45,7 @@ exports.register = async (req, res) => {
     const user = new User({
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password,
+        password: bcrypt.hashSync(req.body.password, 10),
         birthDate: req.body.birthDate,
         locality: req.body.locality,
     });
@@ -60,10 +60,10 @@ exports.register = async (req, res) => {
                 errors.push(err.errors[key].message);
             });
             return res.status(400).json({ success: false, msgs: errors });
-        }
-        else
+        } else {
             res.status(500).json({ success: false, msg: err.message || "Ocorreu algum erro ao criar o utilizador."
             });
+        }
     }
 }
 

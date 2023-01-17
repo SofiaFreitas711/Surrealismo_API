@@ -3,7 +3,7 @@ const mongoose  = require('mongoose')
 const schema = new mongoose.Schema(
     {
         name: { type: String, required: [true, 'Falta o nome!']},
-        email: { type: String, required: [true, 'Falta o seu email']},
+        email: { type: String, required: [true, 'Falta o seu email'], unique: true},
         password: { type: String, required: [true, 'Falta uma palavra-passe!']},
         image: { type: String, default: ''},
         birthDate: {type: Date, required: [true, 'Falta a sua data de nascimento!']},
