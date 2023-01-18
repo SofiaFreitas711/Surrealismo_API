@@ -67,7 +67,7 @@ utilities.isAdmin,
  * @security Bearer
  */
 
-router.put('/:id', utilities.isAdmin, (req, res) => {
+router.put('/:id', utilities.validateToken, (req, res) => {
     shopController.update(req, res);
 })
 
