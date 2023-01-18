@@ -28,7 +28,7 @@ exports.getAll = async (req, res) => {
     try {
         let data = await Shop
             .find()
-            .select('name discount amountPoints')
+            .select('name discount amountPoints info')
             .exec();
         res.status(200).json({ success: true, shop: data });
     } catch (err) {
