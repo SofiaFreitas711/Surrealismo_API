@@ -7,6 +7,7 @@ const schema = new mongoose.Schema(
         info: { type: String, required: [true, 'Falta uma descrição']},
         born:{type: Date, required: [true, 'Falta a data de nascimento']},
         death:{type: Date},
+        arts: {type: Array}
     }
 );
 const Artist = mongoose.model("artists", schema);
