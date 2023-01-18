@@ -39,11 +39,10 @@ exports.getAll = async (req, res) => {
     try {
         let data = await Arts
             .find(condition)
-            .select('image artist technique')
             .exec();
         res.status(200).json({
             success: true,
-            artist: data
+            arts: data
         });
     } catch (err) {
         if (err.name === "ValidationError") {
