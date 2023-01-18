@@ -16,20 +16,18 @@ router.get('/', (req, res) => {
     newsController.getAll(req, res)
 })
 
-
-// Não funcional no momento
 /**
- * @route GET /news/:type
+ * @route GET /news/type/:type
  * @group News
- * @param {object} object.body - Retorna a informação de uma noticia ou evento pesquisado pelo id - ex. [{"name":"Noites Cadillac", "image":"https://www.cupertino.pt/media/4071/tm3c2a8018.jpg?anchor=center&mode=crop&width=555&upscale=false&rnd=133136720280000000", "day":"26-11-2022", "price":"3", "info":"Inserido nos Mário Cesariny - Encontros XVI, realiza-se no sábado, dia 26 de novembro, às 17h30, o espetáculo de Mafalda Veiga, intitulado 𝐍𝐨𝐢𝐭𝐞 𝐂𝐚𝐝𝐢𝐥𝐥𝐚𝐜.", "localization":"Fundação Cupertino de Miranda", "type":"Evento"},...]
+ * @param {object} object.body - Retorna a informação de uma noticia ou evento pesquisado pelo tipo - ex. [{"name":"Noites Cadillac", "image":"https://www.cupertino.pt/media/4071/tm3c2a8018.jpg?anchor=center&mode=crop&width=555&upscale=false&rnd=133136720280000000", "day":"26-11-2022", "price":"3", "info":"Inserido nos Mário Cesariny - Encontros XVI, realiza-se no sábado, dia 26 de novembro, às 17h30, o espetáculo de Mafalda Veiga, intitulado 𝐍𝐨𝐢𝐭𝐞 𝐂𝐚𝐝𝐢𝐥𝐥𝐚𝐜.", "localization":"Fundação Cupertino de Miranda", "type":"Evento"},...]
  * @returns {object} 200 - Bearer Token
  * @returns {Error} 400 - Tipo inválido
  * @returns {Error} 404 - Tipo não encontrado
  * @returns {Error} 500 - Algo deu errado
  */
-// router.get('/:type', (req,res) => {
-//     newsController.findByType(req,res)
-// })
+router.get('/type/:type', (req,res) => {
+    newsController.findByType(req,res)
+})
 
 /**
  * @route GET /news/:id

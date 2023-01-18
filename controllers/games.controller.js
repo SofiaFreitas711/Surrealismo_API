@@ -26,11 +26,9 @@ exports.create = async (req, res) => {
 }
 
 exports.getAll = async (req, res) => {
-    const type = req.query.type;
-    const condition = type ? {type: new RegExp(type, 'i')} : {};
     try {
         let data = await Games
-            .find(condition)
+            .find()
             .select("name image type")
             .exec();
         res.status(200).json({ success: true, msg: data})
@@ -41,6 +39,29 @@ exports.getAll = async (req, res) => {
                 errors.push(err.errors[key].message);
             });
             return res.status(400).json({ success: false, msg: err.message || "Ocorreu algum erro ao recuperar os jogos."})
+        }
+    }
+}
+
+exports.findByType = async (req, res) => {
+    try {
+        const games = await Games
+            .find({type:req.params.type})
+            .select("name image type")
+            .exec();
+
+        if (games === null) {
+            res.status(404).json({success: false, msg: `Não foi possível encontrar nenhum jogo do tipo ${req.params.type}`})
+        }
+
+        res.json({success: true, games: games})
+    } catch (err) {
+        if (err.name === "ValidationError") {
+            let errors = [];
+            Object.keys(err.errors).forEach(key => {
+                errors.push(err.errors[key].message);
+            });
+            return res.status(400).json({success: false, msg: `Erro ao recuperar artigos do tipo ${req.params.type}.`})
         }
     }
 }

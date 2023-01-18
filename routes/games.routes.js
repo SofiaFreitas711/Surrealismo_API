@@ -58,6 +58,19 @@ router.get('/:gameID', utilities.validateToken, (req, res) => {
 })
 
 /**
+ * @route GET /games/type/:type
+ * @group Games
+ * @param {object} object.body - Retorna uma lista de jogos pesquisado pelo tipo
+ * @returns {object} 200 - Bearer Token
+ * @returns {Error} 400 - Tipo inválido
+ * @returns {Error} 404 - Tipo não encontrado
+ * @returns {Error} 500 - Algo deu errado
+ */
+router.get('/type/:type', (req,res) => {
+    gameController.findByType(req,res)
+})
+
+/**
  * @route PATCH /games/:gameID
  * @group Games
  * @param {object} object.body - Alterar alguma informação do jogo - ex. {"name":"game", "image":"image.jpeg", "questions": [{"question": "question example", "alternatives": ['b1', 'b2', 'b3', 'b4'], "answer": "b1"}], "points": 200} 
