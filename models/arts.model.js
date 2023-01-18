@@ -18,11 +18,11 @@ const schema = new mongoose.Schema({
         required: [true, 'Descrição em falta.']
     },
     date: {
-        type: Date,
+        type: String,
         required: [true, 'Data em falta.']
     },
     technique: {
-        type: mongoose.Types.ObjectId,
+        type: String,
         required: [true, 'Técnica em falta.']
     },
     location: {
