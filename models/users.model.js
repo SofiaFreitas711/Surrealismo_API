@@ -13,7 +13,9 @@ const schema = new mongoose.Schema(
         points: {type: Number, default: 0},
         gamesPlayed: {type: Array, default: []},
         exchanges: {type: Array, default: []},
-        favorites: {type: Array, default: []},
+        favoritesArt: {type: Array, default: []},
+        favoritesArtist: {type: Array, default: []},
+        favoritesNew: {type: Array, default: []},
     }
 );
 const User = mongoose.model("Users", schema);
