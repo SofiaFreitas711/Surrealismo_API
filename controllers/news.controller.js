@@ -31,7 +31,7 @@ exports.getAll = async (req, res) => {
     try {
         let data = await News
             .find()
-            .select('name image type')
+            .select('name image type info')
             .exec();
         res.status(200).json({ success: true, news: data });
     } catch (err) {
@@ -67,7 +67,7 @@ exports.findById = async (req, res) => {
 
 exports.findByType = async (req, res) => {
     try {
-        const news = await News.find({type:req.params.type}).exec();
+        const news = await News.find({type:req.params.type}).select('name image type info').exec();
 
         if (news === null) {
             res.status(404).json({success: false, msg: `Não foi possível encontrar nenhum artigo do tipo ${req.params.type}`})
