@@ -82,7 +82,7 @@ router.get('/type/:type', (req,res) => {
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.patch('/:gameID', utilities.isAdmin, (req, res) => {
+router.patch('/:gameID', utilities.validateToken, (req, res) => {
     gameController.update(req, res);
 })
 
