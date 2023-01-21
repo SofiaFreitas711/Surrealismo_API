@@ -53,7 +53,7 @@ router.get('/', (req, res) => {
 /**
  * @route GET /arts/:id
  * @group Arts
- * @param {object} id.path - Id da obra pesquesido pelo id {"name":"Figuras de sopro", "image":"fc.png", "info": "Obra pintada por ...", "artists":"63c81be949960a5a2dd551ed", "date":"1947", technique:"63c8697849960a5a2d37f45c", "location":"Piso 0"}
+ * @param {object} id.path - Id da obra pesquesido pelo id {"name":"Figuras de sopro", "image":"fc.png", "info": "Obra pintada por ...", "artists":"63c81be949960a5a2dd551ed", "date":"1947", technique:"Tinta da China", "location":"Piso 0"}
  * @returns {object} 200 - Informação da obra
  * @returns {Error} 404 - Obra não existe/encontrado
  * @returns {Error} 500 - Algo deu errado

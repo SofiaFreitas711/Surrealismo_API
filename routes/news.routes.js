@@ -73,7 +73,7 @@ utilities.isAdmin,
 /**
  * @route Put /news/:id
  * @group News
- * @param {object} id.put - Formulário para alterar noticia/evento - ex. {"price":"5"}
+ * @param {object} id.path - Formulário para alterar noticia/evento - ex. {"price":"5"}
  * @returns {object} 200 - Noticia alterada
  * @returns {Error} 401 - É preciso estar autenticado
  * @returns {Error} 403 - Utilizador sem permissão
