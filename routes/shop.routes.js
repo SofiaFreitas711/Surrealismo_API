@@ -7,8 +7,8 @@ const utilities = require('../utilities/utilities.js');
 /**
  * @route GET /shop/
  * @group Shop
- * @param {object} object.body - Retorna todas as trocas disponiveis - ex. [{"name":"20% desconto no bilhete geral", "discount":"20", "amountPoints":"950", "info":" Com este desconto poderás obter um código de desconto no bilhete geral de visita da nossa Fundação! Vem ver os quadros que temos para te mostrar"},{...}]
- * @returns {object} 200 - Bearer Token
+ * @returns {object} 200 - Retorna todas as trocas disponiveis - ex. [{"name":"20% desconto no bilhete geral", "discount":"20", "amountPoints":"950", "info":" Com este desconto poderás obter um código de desconto no bilhete geral de visita da nossa Fundação! Vem ver os quadros que temos para te mostrar"},{...}]
+ * @returns {Error} 400 - Erro inesperado
  * @returns {Error} 500 - Algo deu errado
  */
 
@@ -19,8 +19,7 @@ router.get('/', (req, res) => {
 /**
  * @route GET /shop/:id
  * @group Shop
- * @param {object} object.body - Retorna a informação de uma troca pesquisado pelo id - ex. {"name":"20% desconto no bilhete geral", "discount":"20", "amountPoints":"950", "info":" Com este desconto poderás obter um código de desconto no bilhete geral de visita da nossa Fundação! Vem ver os quadros que temos para te mostrar"}
- * @returns {object} 200 - Bearer Token
+ * @returns {object} 200 - Retorna a informação de uma troca pesquisado pelo id - ex. {"name":"20% desconto no bilhete geral", "discount":"20", "amountPoints":"950", "info":" Com este desconto poderás obter um código de desconto no bilhete geral de visita da nossa Fundação! Vem ver os quadros que temos para te mostrar"}
  * @returns {Error} 400 - id inválido
  * @returns {Error} 404 - id não encontrado
  * @returns {Error} 500 - Algo deu errado
@@ -33,7 +32,7 @@ router.get('/:id', (req,res) => {
  * @route Post /shop/
  * @group Shop
  * @param {object} object.body - Formulário para adicionar nova troca - ex. {"name":"Livro FCM", "discount":"100", "amountPoints":"2000", "info":" Um livro inspirado nas obras presentes da Fundação, onde podes deixar-te levar pela tua criatividade"}
- * @returns {object} 201 - Criado com sucesso
+ * @returns {object} 201 - Nova troca criada com sucesso!
  * @returns {Error} 400 - Dados em falta
  * @returns {Error} 401 - É preciso estar autenticado
  * @returns {Error} 403 - Utilizador sem permissão
@@ -46,7 +45,7 @@ utilities.isAdmin,
     body('name').notEmpty().escape(),
     body('discount').notEmpty().escape(),
     body('info').notEmpty().escape(),
-] , /*isAdmin,*/ (req,res) => {
+] , (req,res) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
         shopController.create(req,res)

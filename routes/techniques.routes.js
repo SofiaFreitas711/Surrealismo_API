@@ -11,7 +11,7 @@ const utilities = require('../utilities/utilities.js');
  * @route POST /techniques/
  * @group Technique
  * @param {object} object.body - Formulário para adicionar técnica - ex. {"name":"nome da técnica"} 
- * @returns {object} 201 - Técnica adicionada
+ * @returns {object} 201 - Nova técnica criada com sucesso!
  * @returns {Error} 400 - Dados em falta
  * @returns {Error} 401 - É preciso estar autenticado
  * @returns {Error} 403 - Utilizador sem permissão
@@ -36,7 +36,7 @@ utilities.isAdmin,
 /**
  * @route GET /techniques/
  * @group Technique
- * @returns {object} 200 - Lista das técnicas
+ * @returns {object} 200 - Lista das técnicas - ex: [{name: "Acrílico sobre papel"}, {...}]
  * @returns {Error} 500 - Algo deu errado
  */
 router.get('/', (req, res) => {
@@ -47,7 +47,7 @@ router.get('/', (req, res) => {
  * @route GET /techniques/:techniqueID
  * @group Technique
  * @param {object} id.patch - Id da técnica
- * @returns {object} 200 - Técnica
+ * @returns {object} 200 - Técnica pesquisada pelo id - ex: {name: "Acrílico sobre papel"}
  * @returns {Error} 404 - Técnica não existe/encontrado
  * @returns {Error} 500 - Algo de errado aconteceu
  */
@@ -56,7 +56,7 @@ router.get('/:techniqueID', (req, res) => {
 })
 
 /**
- * @route PATCH /techniques/:techniqueID
+ * @route PUT /techniques/:techniqueID
  * @group Technique
  * @param {object} object.body - Alterar alguma informação da técnica - ex. {"name":"nome da técnica"} 
  * @param {object} id.patch - Id da técnica
@@ -67,7 +67,7 @@ router.get('/:techniqueID', (req, res) => {
  * @returns {Error} 500 - Algo de errado aconteceu
  * @security Bearer
  */
-router.patch('/:techniqueID', utilities.isAdmin, (req, res) => {
+router.put('/:techniqueID', utilities.isAdmin, (req, res) => {
     techniqueController.update(req, res);
 })
 

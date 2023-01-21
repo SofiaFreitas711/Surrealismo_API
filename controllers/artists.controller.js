@@ -10,7 +10,7 @@ exports.create = async(req, res) => {
 
     try {
         await artist.save()
-        res.status(201).json({success: true, msg: "Novo evento artista com sucesso!", URL: `/artists/${artist._id}`});
+        res.status(201).json({success: true, msg: "Novo artista criado com sucesso!", URL: `/artists/${artist._id}`});
     } catch (err){
         if (err.name === "ValidationError") {
             let errors = [];

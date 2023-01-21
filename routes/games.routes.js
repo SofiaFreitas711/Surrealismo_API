@@ -8,7 +8,7 @@ const utilities = require('../utilities/utilities.js');
  * @route POST /games/
  * @group Games
  * @param {object} object.body - Formulario para criar o jogo - ex. {"name":"game", "image":"image.jpeg", "questions": [{"question": "question example", "alternatives": ['a1', 'a2', 'a3', 'a4'], "answer": "a1"}], "points": 150} 
- * @returns {object} 201 - Jogo criado
+ * @returns {object} 201 - Novo Jogo criado com sucesso!
  * @returns {Error} 400 - Dados em falta
  * @returns {Error} 401 - É preciso estar autenticado
  * @returns {Error} 403 - Utilizador sem permissão
@@ -34,7 +34,7 @@ utilities.isAdmin,
 /**
  * @route GET /games/
  * @group Games
- * @returns {object} 200 - Lista de jogos
+ * @returns {object} 200 - Lista de jogos - ex: [{"name":"Conheces o nome de todas as obras?", "image":"https://phyrowns.sirv.com/Surrealismo/FCM00284.jpg", "type": "https://phyrowns.sirv.com/Surrealismo/FCM00284.jpg"}, {...}]
  * @returns {Error} 401 - É preciso estar autenticado
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
@@ -46,8 +46,8 @@ router.get('/', utilities.validateToken, (req, res) => {
 /**
  * @route GET /games/:gameID
  * @group Games
- * @param {object} id.patch - Id do jogo
- * @returns {object} 200 - Jogo
+ * @param {object} id.path - Id do jogo
+ * @returns {object} 200 - Toda informação do jogo pesquisado pelo id - ex: {"name":"Conheces o nome de todas as obras?", "image":"https://phyrowns.sirv.com/Surrealismo/FCM00284.jpg", "type": "game.png", "points: 200, "questions: [...], leaderboard: [{"userID": "63c8196418f6fb50bac1a6f2", "points: 100"}, {...}]"}
  * @returns {Error} 401 - É preciso estar autenticado
  * @returns {Error} 404 - Jogo não existe/encontrado
  * @returns {Error} 500 - Algo deu errado
@@ -60,8 +60,8 @@ router.get('/:gameID', utilities.validateToken, (req, res) => {
 /**
  * @route GET /games/type/:type
  * @group Games
- * @param {object} object.body - Retorna uma lista de jogos pesquisado pelo tipo
- * @returns {object} 200 - Bearer Token
+ * @param {object} type.path - Tipo do jogo
+ * @returns {object} 200 - Lista de jogos do "type" passado como parametro
  * @returns {Error} 400 - Tipo inválido
  * @returns {Error} 404 - Tipo não encontrado
  * @returns {Error} 500 - Algo deu errado
@@ -71,10 +71,10 @@ router.get('/type/:type', (req,res) => {
 })
 
 /**
- * @route PATCH /games/:gameID
+ * @route PUT /games/:gameID
  * @group Games
  * @param {object} object.body - Alterar alguma informação do jogo - ex. {"name":"game", "image":"image.jpeg", "questions": [{"question": "question example", "alternatives": ['b1', 'b2', 'b3', 'b4'], "answer": "b1"}], "points": 200} 
- * @param {object} id.patch - Id do jogo
+ * @param {object} id.path  - Id do jogo
  * @returns {object} 200 - Jogo alterado
  * @returns {Error} 401 - É preciso estar autenticado
  * @returns {Error} 403 - Utilizador sem permissão
@@ -82,14 +82,14 @@ router.get('/type/:type', (req,res) => {
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.patch('/:gameID', utilities.validateToken, (req, res) => {
+router.put('/:gameID', utilities.validateToken, (req, res) => {
     gameController.update(req, res);
 })
 
 /**
  * @route DELETE /games/:gameID
  * @group Games
- * @param {object} id.patch - Id do jogo
+ * @param {object} id.path - Id do jogo
  * @returns {object} 204 - Jogo eliminado
  * @returns {Error} 401 - É preciso estar autenticado
  * @returns {Error} 403 - Utilizador sem permissão

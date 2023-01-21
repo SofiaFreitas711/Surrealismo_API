@@ -7,8 +7,8 @@ const utilities = require('../utilities/utilities.js');
 /**
  * @route GET /artists/
  * @group Artists
- * @param {object} object.body - Retorna todas as informações dos artistas - ex. [{"name":"Mario Cesariny", "image":"mc.png", "info": "Pintor Português do movimento surrealista", "arts":["obra1.png"]}, {...}]
- * @returns {object} 200 - Bearer Token
+ * @returns {object} 200 - Retorna todas as informações dos artistas - ex. [{"name":"Mario Cesariny", "image":"mc.png", "info": "Pintor Português do movimento surrealista", "arts":["obra1.png"]}, {...}]
+ * @returns {Error} 400 - Erro inesperado
  * @returns {Error} 500 - Algo deu errado
  */
 
@@ -19,8 +19,8 @@ router.get('/', (req, res) => {
 /**
  * @route GET /artists/:id
  * @group Artists
- * @param {object} object.body - Retorna a informação de um artista pesquisado pelo id - ex. {"name":"Mario Cesariny", "image":"mc.png", "info": "Pintor Português do movimento surrealista", "arts":["obra1.png"]}
- * @returns {object} 200 - Bearer Token
+ * @param {object} id.path - id do artista
+ * @returns {object} 200 - Retorna a informação de um artista pesquisado pelo id - ex. {"name":"Mario Cesariny", "image":"mc.png", "info": "Pintor Português do movimento surrealista", "arts":["obra1.png"]}
  * @returns {Error} 400 - id inválido
  * @returns {Error} 404 - id não encontrado
  * @returns {Error} 500 - Algo deu errado
@@ -33,7 +33,7 @@ router.get('/:id', (req,res) => {
  * @route Post /artists/
  * @group Artists
  * @param {object} object.body - Formulário para adicionar novo artista - ex. {"name":"Cruzeiro Seixas", "image":"cs.png", "info": "Pintor Português do movimento surrealista", "arts":["obra1.png"]}
- * @returns {object} 201 - Criado com sucesso
+ * @returns {object} 201 - Novo artista criado com sucesso!
  * @returns {Error} 400 - Dados em falta
  * @returns {Error} 401 - É preciso estar autenticado
  * @returns {Error} 403 - Utilizador sem permissão
@@ -58,7 +58,8 @@ utilities.isAdmin,
 /**
  * @route Put /artists/:id
  * @group Artists
- * @param {object} id.put - Formulário para alterar artista - ex. {"info":"Pintor Português, ligado a fotografia"}
+ * @param {object} object.body - Formulário para alterar artista - ex. {"info":"Pintor Português, ligado a fotografia"}
+ * @param {object} id.path - id do artista
  * @returns {object} 200 - Artista alterada
  * @returns {Error} 401 - É preciso estar autenticado
  * @returns {Error} 403 - Utilizador sem permissão
@@ -73,8 +74,8 @@ router.put('/:id', utilities.isAdmin, (req, res) => {
 /**
  * @route DELETE /artists/:id
  * @group Artists
- * @param {object} id.delete - Id do Artista
- * @returns {object} 204 - Artista eliminada
+ * @param {object} id.path - Id do Artista
+ * @returns {object} 204 - Artista eliminado
  * @returns {Error} 401 - É preciso estar autenticado
  * @returns {Error} 403 - Utilizador sem permissão
  * @returns {Error} 404 - Artista não existe/encontrada

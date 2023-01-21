@@ -11,7 +11,7 @@ const utilities = require('../utilities/utilities.js');
  * @route POST /arts/
  * @group Arts
  * @param {object} object.body - Formulario para adiconar a obra - ex. {"name":"nome da obra", "image":"image.jpeg", artist: "nome do artista", "info": "texto exemplo", "date": "2020-06-15", "technique":"nome da técnica",  "location": "Piso 3"} 
- * @returns {object} 201 - Obra adicionada
+ * @returns {object} 201 - Nova obra de arte criada com sucesso!
  * @returns {Error} 400 - Dados em falta
  * @returns {Error} 401 - É preciso estar autenticado
  * @returns {Error} 403 - Utilizador sem permissão
@@ -42,7 +42,8 @@ utilities.isAdmin,
 /**
  * @route GET /arts/
  * @group Arts
- * @returns {object} 200 - Lista das obras
+ * @returns {object} 200 - Lista das obras ex. [{"name":"Figuras de sopro", "image":"fc.png", "info": "Obra pintada por ...", "artists":"63c81be949960a5a2dd551ed"}, {...}]
+ * @returns {Error} 400 - Erro inesperado
  * @returns {Error} 500 - Algo deu errado
  */
 router.get('/', (req, res) => {
@@ -52,8 +53,8 @@ router.get('/', (req, res) => {
 /**
  * @route GET /arts/:id
  * @group Arts
- * @param {object} id.patch - Id da obra
- * @returns {object} 200 - Obra
+ * @param {object} id.path - Id da obra pesquesido pelo id {"name":"Figuras de sopro", "image":"fc.png", "info": "Obra pintada por ...", "artists":"63c81be949960a5a2dd551ed", "date":"1947", technique:"63c8697849960a5a2d37f45c", "location":"Piso 0"}
+ * @returns {object} 200 - Informação da obra
  * @returns {Error} 404 - Obra não existe/encontrado
  * @returns {Error} 500 - Algo deu errado
  */
@@ -62,10 +63,10 @@ router.get('/:id', (req, res) => {
 })
 
 /**
- * @route PATCH /arts/:id
+ * @route PUT /arts/:id
  * @group Arts
  * @param {object} object.body - Alterar alguma informação do jogo - ex. {"name":"nome da obra", "image":"image.jpeg", "data": "2020-06-15", "info": "texto exemplo", "localization": "Piso 3", artists: ["id do artista", ...]} 
- * @param {object} id.patch - Id da obra
+ * @param {object} id.path - Id da obra
  * @returns {object} 200 - Obra alterada
  * @returns {Error} 401 - É preciso estar autenticado
  * @returns {Error} 403 - Utilizador sem permissão
@@ -73,7 +74,7 @@ router.get('/:id', (req, res) => {
  * @returns {Error} 500 - Algo deu errado
  * @security Bearer
  */
-router.patch('/:id', utilities.isAdmin, (req, res) => {
+router.put('/:id', utilities.isAdmin, (req, res) => {
     utilities.validateToken(req, res);
     artController.update(req, res);
 })
@@ -81,7 +82,7 @@ router.patch('/:id', utilities.isAdmin, (req, res) => {
 /**
  * @route DELETE /arts/:id
  * @group Arts
- * @param {object} id.patch - Id da obra
+ * @param {object} id.path - Id da obra
  * @returns {object} 204 - Obra eliminada
  * @returns {Error} 401 - É preciso estar autenticado
  * @returns {Error} 403 - Utilizador sem permissão
